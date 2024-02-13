@@ -32,10 +32,8 @@ resource "aws_iam_instance_profile" "main" {
 }
 
 resource "aws_instance" "main" {
-  count                = length(data.tfe_outputs.networking.nonsensitive_values.public_subnets)
-  ami                  = nonsensitive(data.aws_ssm_parameter.amzn2_linux.value)
-  iam_instance_profile = aws_iam_instance_profile.main
-
+  count         = length(data.tfe_outputs.networking.nonsensitive_values.public_subnets)
+  ami           = nonsensitive(data.aws_ssm_parameter.amzn2_linux.value)
   instance_type = var.instance_type
   subnet_id     = data.tfe_outputs.networking.nonsensitive_values.public_subnets[count.index]
   vpc_security_group_ids = [
@@ -51,6 +49,8 @@ resource "aws_instance" "main" {
   })
 
   user_data_replace_on_change = true
+  iam_instance_profile        = aws_iam_instance_profile.main.name
+
   user_data = templatefile("./templates/userdata.sh", {
     playbook_repository = var.playbook_repository
     secret_id           = var.api_key_secret_id
