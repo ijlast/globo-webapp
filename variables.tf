@@ -46,3 +46,9 @@ variable "tfe_workspace" {
   type        = string
   description = "(Required) Terraform Cloud workspace containing the network configuration"
 }
+
+
+variable "playbook_repository" {
+  type        = string
+  description = "(Required) URI of Ansible playbook"
+}
