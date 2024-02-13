@@ -1,8 +1,8 @@
 
 variable "region" {
   type        = string
-  description = "(Optional) AWS Region to deploy in. Defaults to us-east-1."
-  default     = "us-east-1"
+  description = "(Optional) AWS Region to deploy in. Defaults to eu-north-1."
+  default     = "eu-north-1"
 }
 
 variable "prefix" {
@@ -32,9 +32,9 @@ variable "instance_type" {
   default     = "t3.micro"
 }
 
-variable "api_key" {
+variable "api_key_secret_id" {
   type        = string
-  description = "(Required) API key for web app to talk to SaaS platform."
+  description = "(Required) Secret ID for API key for web app to talk to SaaS platform."
 }
 
 variable "tfe_organization" {
@@ -51,4 +51,9 @@ variable "tfe_workspace" {
 variable "playbook_repository" {
   type        = string
   description = "(Required) URI of Ansible playbook"
+}
+
+variable "ec2_role_name" {
+  type        = string
+  description = "(Required) IAM securtiy role name"
 }
